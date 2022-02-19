@@ -201,7 +201,7 @@ export default {
             this.getInfo(); //个人资料
             this.user_name = sessionStorage.getItem("userName");
             // this.user_name = localStorage.getItem("userNamee");
-              let title = "欢迎页" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+              let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
         } else {
             this.$router.push('/passwordLogin')

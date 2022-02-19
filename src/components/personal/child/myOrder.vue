@@ -131,7 +131,7 @@ export default {
         if(localStorage.getItem("loginuserdata") == 'true') {
             if(localStorage.getItem("loginuserdata") == 'true') {
                 this.orderNumber();
-                let title = "我的订单" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                 this.showScroll.scrollTitle(title);
             } else {
                 this.$router.push('/passwordLogin')

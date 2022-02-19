@@ -1,7 +1,7 @@
 <template>
     <div class="list">
         <common-header v-on:childToParent="onChildClick"></common-header>
-        <head-com></head-com>
+        <head-com :navid = 58></head-com>
         <div class="center">
             <div class="header">
                 <img class="l logo" src="../../assets/img/fangzi.jpg" />
@@ -36,7 +36,7 @@
                     <i @click="down" v-show="lose" class="el-icon-arrow-up"></i>
                     <div class="duo" @click="opens(1)" v-if="show" :class="{'duo':onoff}">+多选</div>
                 </div>
-                <div class="both">
+                <!-- <div class="both">
                     <ul ref="priceHeight">
                         <li class="l">品 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 牌：</li>
                         <li
@@ -50,7 +50,7 @@
                     <i @click="up" v-show="block" class="el-icon-arrow-down"></i>
                     <i @click="up" v-show="hidden" class="el-icon-arrow-up"></i>
                     <div class="duo" @click="opens(2)" v-if="show1" :class="{'duo':onoff1}">+多选</div>
-                </div>
+                </div> -->
                 <div class="both jifen">
                     <ul>
                         <li class="l">积分范围：</li>
@@ -185,7 +185,7 @@ export default {
             yeshu: [],
             pagesize: 30,
             TopClassData: [],
-            BrandList: [],
+            // BrandList: [],
             integralGoodsList: "",
             count: 0,
             totalPages: 0,
@@ -232,7 +232,7 @@ export default {
         //获取商品一级分类
         this.getTopClass();
         //获取商品品牌
-        this.getBrandList();
+        // this.getBrandList();
         // 获取所有积分商品列表
         this.getIntegralGoodsList();
         this.Sort([1, 2, 6, 123, 4, 6, 8, 4, 7, 3, 8, 8, 12, 34, 15, 63]);
@@ -262,7 +262,7 @@ export default {
                     );
                     sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                     sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                        let title='积分商城'+'-'+'所有分类'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                        let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                         this.showScroll.scrollTitle(title);
                 })
                 .catch(err => {
@@ -401,22 +401,22 @@ export default {
             this.find = !this.find;
             // 判断商品分类右侧箭头的状态来获取当前显示的值
             if (this.find == true && this.lose == false) {
-                this.TopClassData = this.temporary.slice(0, 8);
+                this.TopClassData = this.temporary.slice(0, 6);
             } else {
                 this.TopClassData = this.temporary;
             }
         },
-        up() {
-            this.off = !this.off;
-            this.block = !this.block;
-            this.hidden = !this.hidden;
-            if (this.block == true && this.hidden == false) {
-                //判断多选之前显示八个，之后显示全部
-                this.BrandList = this.temporary1.slice(0, 8);
-            } else {
-                this.BrandList = this.temporary1;
-            }
-        },
+        // up() {
+        //     this.off = !this.off;
+        //     this.block = !this.block;
+        //     this.hidden = !this.hidden;
+        //     if (this.block == true && this.hidden == false) {
+        //         //判断多选之前显示八个，之后显示全部
+        //         this.BrandList = this.temporary1.slice(0, 8);
+        //     } else {
+        //         this.BrandList = this.temporary1;
+        //     }
+        // },
         hit(index) {
             this.isbg = index;
         },
@@ -426,17 +426,17 @@ export default {
             this.HTTP(this.$httpConfig.getTopClass, {}, "post").then(res => {
                 var list = res.data.data;
                 this.temporary = list; //把结果临时保存进临时数组，用于判断
-                this.TopClassData = this.temporary.slice(0, 8);
+                this.TopClassData = this.temporary.slice(0, 6);
             });
         },
         //获取商品品牌
-        getBrandList() {
-            this.HTTP(this.$httpConfig.getBrandList, {}, "post").then(res => {
-                var list = res.data.data;
-                this.temporary1 = list;
-                this.BrandList = this.temporary1.slice(0, 8);
-            });
-        }
+        // getBrandList() {
+        //     this.HTTP(this.$httpConfig.getBrandList, {}, "post").then(res => {
+        //         var list = res.data.data;
+        //         this.temporary1 = list;
+        //         this.BrandList = this.temporary1.slice(0, 8);
+        //     });
+        // }
     }
 };
 </script>

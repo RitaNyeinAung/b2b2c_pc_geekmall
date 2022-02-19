@@ -9,8 +9,20 @@ export default {
     data() {
         return {};
     },
-    created() {},
-    methods: {},
+    created() {
+        this.registerMethod();
+    },
+    methods: {
+        registerMethod() {
+            this.HTTP(this.$httpConfig.getLoginMethod, {}, "post")
+            .then(res => {
+            this.$store.state.loginMethod = res.data.data;
+            })
+            .catch(e => {
+            console.log(e);
+            });
+        }
+    },
     mounted() {}
 };
 </script>

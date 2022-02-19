@@ -151,7 +151,7 @@ import allGoodsVue from '../../add/allGoods.vue'
 		created() {
 			if(localStorage.getItem("loginuserdata") == 'true') {
 				this.getInfo();
-				let title = "账户安全" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+				let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
 				this.showScroll.scrollTitle(title);
 			} else {
 				this.$router.push('/passwordLogin')

@@ -78,7 +78,7 @@ export default {
     },
     created() {
         if(localStorage.getItem("loginuserdata") == 'true') {
-            let title = "我的投诉" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+            let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
         } 
         // else {

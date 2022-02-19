@@ -158,7 +158,7 @@
     },
     created(){
       if(this.$route.query.class_name == null){
-        let title = '全部宝贝' + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('descriptionStore');
+        let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('descriptionStore');
         this.showScroll.scrollTitle(title);
       }
       else{

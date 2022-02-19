@@ -179,7 +179,7 @@
 			this.func();
 			this.getFootData();
       		this.getFavIcon(); 
-			let title='结算页'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+			let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
 			this.showScroll.scrollTitle(title);
 		},
 		mounted() { 
@@ -202,7 +202,7 @@
 						);
 						sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
 						sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-						let title='结算页'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+						let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
 						this.showScroll.scrollTitle(title);
 						this.logoPhoto = res.data.data.logo_name;
 					})

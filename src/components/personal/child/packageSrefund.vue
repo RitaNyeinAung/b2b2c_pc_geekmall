@@ -76,7 +76,7 @@ export default {
     },
 	created() {
       if(localStorage.getItem("loginuserdata") == 'true') {
-         let title = "套餐退款退货" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+         let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
         this.showScroll.scrollTitle(title);
       } 
       // else {

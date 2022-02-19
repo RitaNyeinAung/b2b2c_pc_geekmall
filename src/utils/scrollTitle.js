@@ -14,7 +14,7 @@ export default {
             // 头尾拼接后赋给data => tit属性
             // title = foot + head;
             // 最后赋给最终显示的标题(标题)
-            // document.title = title;
+            document.title = title;
             return;
         // }, 1000);
     }

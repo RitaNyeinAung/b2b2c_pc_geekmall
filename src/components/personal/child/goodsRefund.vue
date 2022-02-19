@@ -100,7 +100,7 @@
       //退货-退货列表,搜索接口
       if(localStorage.getItem("loginuserdata") == 'true') {
         this.getOrderReturnList();
-            let title = "退款退货" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+            let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
           this.showScroll.scrollTitle(title);
       } 
       // else {

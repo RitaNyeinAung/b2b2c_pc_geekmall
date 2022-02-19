@@ -178,7 +178,7 @@ export default {
     created() {
         if(localStorage.getItem("loginuserdata") == 'true') {
             this.getAddressList();
-               let title = "收货地址" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+               let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
         } else {
             this.$router.push('/passwordLogin')

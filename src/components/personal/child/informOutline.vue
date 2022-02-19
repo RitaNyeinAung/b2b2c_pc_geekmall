@@ -191,7 +191,7 @@ export default {
             cancelIndex: -1,
             checkPic: [], //检查图片是否满足要求
             message: "",
-            imgUpload: "http://center.shopsn.net/",
+            imgUpload: "http://center.geekmall.plus/",
             page: 1, //传的page
             pagesize: 10, //    每页的数据
             showListData: true, //列表数据
@@ -256,7 +256,7 @@ export default {
             }
             this.main_id = this.$route.query.main_id;
             this.store_id = this.$route.query.store_id;
-            let title = "举报违规" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+            let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
         } 
         // else {
@@ -309,7 +309,7 @@ export default {
             //     "-" +
             //     this.shopName +
             //     this.$constant.webComContent;
-             let title = "举报违规" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+             let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
         },
         //单条数据返回店铺

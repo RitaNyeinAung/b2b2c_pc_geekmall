@@ -216,7 +216,7 @@
     },
     created(){
         this.drinkNo = JSON.parse(localStorage.getItem("class"));
-        let title= sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+        let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
         this.showScroll.scrollTitle(title);
         this.getFootData();
         this.getFavIcon(); 

@@ -129,7 +129,7 @@ export default {
             //     "-" +
             //     data.init_key_word +
             //     " ";
-               let title = "找回密码2" + "-" + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+               let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
 
         },

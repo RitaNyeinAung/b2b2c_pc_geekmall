@@ -109,7 +109,7 @@ import { Message } from 'element-ui'
     },
     created () {
         if(localStorage.getItem("loginuserdata") == 'true') {
-              let title = "套餐订单" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+              let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
               this.showScroll.scrollTitle(title);
               this.orderNumber();
         } else {

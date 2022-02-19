@@ -168,6 +168,7 @@ export default {
             btnText: "获取验证码",
 			isActive: "",
             logoPhoto:'',
+            payData: '',
             headParams: {
                 title: sessionStorage.getItem('titleKey'),
                 description: sessionStorage.getItem('updateDescription'),
@@ -216,7 +217,7 @@ export default {
                     );
                     sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                     sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                        let title='立即付款'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                        let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                         this.showScroll.scrollTitle(title);
                         this.logoPhoto = res.data.data.logo_name;
                 })
@@ -503,14 +504,16 @@ export default {
                 "post"
             )
                 .then(res => {
-                    
-                    axios.post(res.data.data).then(res => {
+                    this.payData = res.data.data.data;
+                    var url_ = this.payData;
+                    axios.post(url_).then(res => {
                         if (res.data == "SUCCESS") {
                             this.$router.push({
-                                path: "/wxSuccess",
-                                query: {
-                                    link: "/myOrder"
-                                }
+                                // path: "/wxSuccess",
+                                // query: {
+                                //     link: "/myOrder"
+                                // }
+                                path: "/myOrder"
                             });
                         } else {
                             this.$alert("支付失败", "提示", {

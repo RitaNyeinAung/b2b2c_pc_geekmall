@@ -119,7 +119,7 @@ import myHeader from './header/myHeader.vue' //个人中心的头部
 						);
 						sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
 						sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-						let title='申请售后'+'-'+'仅换货'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+						let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
 						this.showScroll.scrollTitle(title);
 					})
 					.catch(err => {

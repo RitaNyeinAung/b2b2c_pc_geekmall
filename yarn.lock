@@ -7619,6 +7619,11 @@
   "resolved" "https://registry.npmjs.org/mux.js/-/mux.js-5.8.0.tgz"
   "version" "5.8.0"
 
+"myanmar-phonenumber@^0.3.2":
+  "integrity" "sha512-/g6Ya6U9tHuE+mKd+2zHgt1f03qCwMjBmsatin4FZRgWeLTcxddZ9B8GwXOUXbQ/6JNqmQTOND0lA7GVZU0W/A=="
+  "resolved" "https://registry.npmjs.org/myanmar-phonenumber/-/myanmar-phonenumber-0.3.2.tgz"
+  "version" "0.3.2"
+
 "mz@^2.4.0":
   "integrity" "sha1-lQCAV6Vsr63CvGPd5/n/aVWUjjI="
   "resolved" "http://registry.npm.taobao.org/mz/download/mz-2.7.0.tgz"

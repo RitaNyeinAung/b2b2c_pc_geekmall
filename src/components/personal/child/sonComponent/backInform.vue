@@ -65,7 +65,7 @@
 export default {
     data() {
         return {
-            imgUpload: "http://center.shopsn.net/"
+            imgUpload: "http://center.geekmall.plus/"
         };
     },
     props: {

@@ -65,6 +65,7 @@
 	export default {
 		data() {
 			return {
+				fromChild: '',
 				list: [],
 				banner:[],
 				issty: '',
@@ -130,7 +131,7 @@
 						);
 						sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
 						sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-							let title='抢购'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+							let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
 							this.showScroll.scrollTitle(title);
 					})
 					.catch(err => {

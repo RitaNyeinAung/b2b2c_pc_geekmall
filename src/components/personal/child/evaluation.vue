@@ -357,7 +357,7 @@ export default {
     },
     created() {
         if(localStorage.getItem("loginuserdata") == 'true') {
-            let title = "我的评价" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+            let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
             this.toBeEvaluated();
             this.haveBeenEvaluated();

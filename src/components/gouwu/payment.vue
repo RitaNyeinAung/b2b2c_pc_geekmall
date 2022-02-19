@@ -107,7 +107,7 @@
 						);
 						sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
 						sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-							let title='我的收银台'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+							let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
 							this.showScroll.scrollTitle(title);
 							this.logoPhoto = res.data.data.logo_name;
 					})

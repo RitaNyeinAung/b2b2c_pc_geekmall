@@ -112,7 +112,7 @@ export default {
     },
     created() {
         if(localStorage.getItem("loginuserdata") == 'true') {
-            let title = "积分订单" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+            let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
         } else {
               this.$router.push('/passwordLogin')

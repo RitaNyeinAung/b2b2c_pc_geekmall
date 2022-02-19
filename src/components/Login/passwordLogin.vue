@@ -36,12 +36,21 @@
                                 账号密码登录
                             </li>
                             <li
+                                v-if="$store.state.loginMethod == 0"
                                 class="l enterIphone"
                                 @click="loginEnter(1)"
                                 :class="{ bg: isbg == 1 }"
                             >
                                 手机动态码登录
                             </li>
+                            <!-- <li
+                                v-if="$store.state.loginMethod == 1"
+                                class="l enterIphone"
+                                @click="loginEnter(1)"
+                                :class="{ bg: isbg == 1 }"
+                            >
+                                邮箱动态码登录
+                            </li> -->
                         </ul>
                         <div class="inputList" v-show="onoff == 0">
                             <div class="d-null">
@@ -59,9 +68,17 @@
                                         src="../../assets/img/login_person.png"
                                 /></i>
                                 <input
+                                    v-if="$store.state.loginMethod == 0"
                                     class="l pass"
                                     type="text"
                                     placeholder="邮箱/用户名/已验证的手机"
+                                    v-model.trim="username"
+                                />
+                                <input
+                                    v-if="$store.state.loginMethod == 1"
+                                    class="l pass"
+                                    type="text"
+                                    placeholder="邮箱/用户名"
                                     v-model.trim="username"
                                 />
                             </label>
@@ -81,7 +98,7 @@
                                 登录
                             </button>
                         </div>
-                        <div class="inputLists" v-show="onoff == 1">
+                        <div class="inputLists" v-show="onoff == 1" v-if="$store.state.loginMethod == 0">
                             <div class="d-null">
                                 <el-alert
                                     v-show="mob_login_show"
@@ -103,6 +120,18 @@
                                     v-model="mobile"
                                 />
                             </label>
+                            <!-- <label v-if="$store.state.loginMethod == 1">
+                                <i class="l mob"
+                                    ><img
+                                        src="../../assets/img/login_info.png"
+                                /></i>
+                                <input
+                                    class="l mob"
+                                    type="text"
+                                    placeholder="请输入邮箱"
+                                    v-model="mobile"
+                                />
+                            </label> -->
                             <p
                                 class="abtain"
                                 :class="{ active: isActive }"
@@ -139,7 +168,7 @@
                                 >免费注册</router-link
                             >
                         </div>
-                        <div class="other">
+                        <div class="other" v-if="$store.state.loginMethod == 0">
                             <a class="l" @click="qq"
                                 ><i
                                     ><img
@@ -157,6 +186,22 @@
                                     ><img
                                         src="../../assets/img/login_weibo.png"/></i
                                 >微博登录</a
+                            >
+                        </div>
+                        <div class="other" v-if="$store.state.loginMethod == 1">
+                            <a class="l" @click="qq" style="width: 118px; margin: 0 0 0 36px;"
+                                ><i
+                                    ><img
+                                        style="width: 22px; height: 22px;"
+                                        src="../../assets/img/Facebook_Logo.png"/></i
+                                >Facebook</a
+                            >
+                            <a class="l" style="width: 118px; margin: 0 0 0 36px;"
+                                ><i
+                                    ><img
+                                        style="width: 22px; height: 22px;"
+                                        src="../../assets/img/google_logo.png"/></i
+                                >Google</a
                             >
                         </div>
                     </div>
@@ -193,7 +238,7 @@
                                 >免费注册</router-link
                             >
                         </div>
-                        <div class="other">
+                        <div class="other" v-if="$store.state.loginMethod == 0">
                             <a class="l" @click="qq"
                                 ><i
                                     ><img
@@ -211,6 +256,22 @@
                                     ><img
                                         src="../../assets/img/login_weibo.png"/></i
                                 >微博登录</a
+                            >
+                        </div>
+                        <div class="other" v-if="$store.state.loginMethod == 1">
+                            <a class="l" @click="qq" style="width: 118px; margin: 0 0 0 36px;"
+                                ><i
+                                    ><img
+                                        style="width: 22px; height: 22px;"
+                                        src="../../assets/img/Facebook_Logo.png"/></i
+                                >Facebook</a
+                            >
+                            <a class="l" style="width: 118px; margin: 0 0 0 36px;"
+                                ><i
+                                    ><img
+                                        style="width: 22px; height: 22px;"
+                                        src="../../assets/img/google_logo.png"/></i
+                                >Google</a
                             >
                         </div>
                     </div>
@@ -310,7 +371,7 @@ export default {
                     this.LTitle = res.data.data.intnet_title;
                     sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                     sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                        let title='登录'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                        let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                         this.showScroll.scrollTitle(title);
                         this.logoPhoto = res.data.data.logo_name;
                 })
@@ -827,6 +888,10 @@ export default {
                         a {
                             font-size: 15px;
                             color: #d02629;
+                            width: 130px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
                         }
                     }
                 }

@@ -891,6 +891,11 @@ export default {
                     var hDisplay = h > 0 ? h + (h == 1 ? "时: " : "时: ") : 0 + "时: ";
                     var mDisplay = m > 0 ? m + (m == 1 ? "分：" : "分：") : 0 + "分：";
                     var sDisplay = s > 0 ? s + (s == 1 ? "秒" : "秒") : 0 + "秒";
+
+                    // var hDisplay = h < 10 ?  "0" + h : h;
+                    // var mDisplay = m < 10 ?  "0" + m : m;
+                    // var sDisplay = s < 10 ?  "0" + s : s;
+                    
                     this.showTime = hDisplay + mDisplay + sDisplay;
                     this.countDownTimer()
                 }, 1000)
@@ -979,8 +984,8 @@ export default {
                     );
                     sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                     sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                        let title='首页'+'-'+ sessionStorage.titleKey + '-' +sessionStorage.getItem('updateDescription');
-                        // this.showScroll.scrollTitle(title);
+                        let title=sessionStorage.titleKey + '-' +sessionStorage.getItem('updateDescription');
+                        this.showScroll.scrollTitle(title);
                 })
                 .catch(err => {
                     console.log(err);
@@ -2017,7 +2022,7 @@ export default {
             }
         }
         .sale_product {
-            height: 290px;
+            height: 305px;
             width: 188px;
             float: left;
             margin-right: 14.2px;
@@ -2053,7 +2058,7 @@ export default {
                 }
                 .sold-show{
                     height: 6px;
-                    position: absolute;
+                    // position: absolute;
                     background-color: #d02629;
                 }
                 .pro-foot{

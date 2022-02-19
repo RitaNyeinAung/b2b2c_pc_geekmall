@@ -115,7 +115,7 @@ export default {
         this.HTTP(this.$httpConfig.distributeMyTeam, {})
             .then(res => {
                 this.teamDataInfo = res.data.data.one_data;
-                let title='我的团队'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                 this.showScroll.scrollTitle(title);
             })
             .catch(err => {
@@ -144,7 +144,7 @@ export default {
                     );
                     sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                     sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                        let title='我的团队'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                        let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                         this.showScroll.scrollTitle(title);
                 })
                 .catch(err => {

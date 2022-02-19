@@ -174,7 +174,7 @@ export default {
             this.geAarticleList(this.$route.params.category_id);
             this.showTitle = this.$route.params.name;
             // let title = this.$route.params.name + this.$constant.webComContent;
-            let title='帮助中心'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+            let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
         } else if (this.$route.params.type == "articleItem") {
             this.HTTP(
@@ -196,7 +196,7 @@ export default {
                     //     "-" +
                     //     this.$route.params.name +
                     //     this.$constant.webComContent;
-                    let title='帮助中心'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                    let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                     this.showScroll.scrollTitle(title);
                 })
                 .catch(err => {
@@ -226,7 +226,7 @@ export default {
                     );
                     sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                     sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                        let title='帮助中心'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                        let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                         this.showScroll.scrollTitle(title);
                 })
                 .catch(err => {

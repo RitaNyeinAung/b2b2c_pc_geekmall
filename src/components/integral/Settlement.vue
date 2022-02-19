@@ -4,7 +4,8 @@
         <common-header v-on:childToParent="onChildClick"></common-header>
         <div class="logo">
             <router-link to="/home">
-                <img src="../../assets/img/ban_head.jpg" />
+                <!-- <img src="../../assets/img/ban_head.jpg" /> -->
+                <img :src="URL + logo_name" />
             </router-link>
             <p>积分结算页</p>
         </div>
@@ -106,6 +107,7 @@ export default {
     data() {
         return {
             data: [],
+            logo_name: "",
             SettleAccounts: [],
             defaultAddress: {},
             freight: 0, // 运费
@@ -182,13 +184,14 @@ export default {
         getFootData() {
             this.HTTP(this.$httpConfig.aboutEtcetera, {}, "post")
                 .then(res => {
+                    this.logo_name = res.data.data.logo_name;
                     sessionStorage.setItem(
                         "titleKey",
                         res.data.data.intnet_title
                     );
                     sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                     sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                        let title='积分结算页'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                        let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                         this.showScroll.scrollTitle(title);
                 })
                 .catch(err => {
@@ -351,7 +354,7 @@ export default {
     p {
         font-size: 24px;
         float: left;
-        margin: 40px 0 0 29px;
+        margin: 45px 0 0 29px;
     }
 }
 

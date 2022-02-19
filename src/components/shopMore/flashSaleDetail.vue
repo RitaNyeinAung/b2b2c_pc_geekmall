@@ -1,7 +1,8 @@
 <template>
 	<div class="flashSaleDetail">
-		<common-header></common-header>
-		<head-com></head-com>
+		<common-header v-on:childToParent="onChildClick"></common-header>
+		<head-com v-if="tempid" :navid = tempid></head-com>
+        <head-com v-else :navid = 50></head-com>
 		<div class="center">
             <div class="box-body">
                 <div class="flash_header" id="sticky">
@@ -35,6 +36,9 @@
                         </div>
                         <div class="pro_text">
                             <div class="pro_title">{{item.title}}</div>
+                            <div class="sold-pho">
+                                <div class="sold-show" :style="'width:' + ((item.buy_num/item.activity_num)*100) + '%'"></div>
+                            </div>
                             <div class="pro-foot">
                                 <div class="l">
                                     <div class="pro_price">￥{{item.activity_price}}</div>
@@ -73,6 +77,8 @@
 	export default {
 		data() {
 			return {
+                fromChild: '',
+                tempid: '',
                 itemIndex: 0,
                 timeData: [],
                 timeId: '',
@@ -93,6 +99,7 @@
             this.getTimeList();
 		},
         mounted(){
+            this.tempid = this.$route.query.id
             let sticky = $('#sticky'),
             stickyTop = sticky.offset().top,
             scrolled = false,
@@ -109,7 +116,7 @@
                     scrolled = false;
                     if ($window.scrollTop() >= stickyTop) {
                         sticky.addClass('fixed');
-                        console.log("sticky");
+                        // console.log("sticky");
                     }
                     else {
                     sticky.removeClass('fixed');
@@ -127,7 +134,7 @@
 						);
 						sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
 						sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-							let title='品牌'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+							let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
 							this.showScroll.scrollTitle(title);
 					})
 					.catch(err => {
@@ -143,6 +150,12 @@
 						console.log(err);
 					});
 			},
+            onChildClick (value) {
+                this.fromChild = value
+                if(this.fromChild == 'false') {
+                    location.reload();
+                }
+            },
             countDownTimer() {
                 if(this.countDownTime > 0) {
                     setTimeout(() => {
@@ -284,6 +297,7 @@
 			margin: 0 auto;
 			height: 100%;
             .box-body {
+                width: 1200px;
                 height: auto;
                 overflow: hidden;
                 // padding: 20px 0;
@@ -384,19 +398,19 @@
                     height: auto;
                     .sale_product {
                         height: 290px;
-                        width: 185px;
+                        width: 188px;
                         float: left;
                         margin-right: 14.2px;
                         margin-bottom: 20px;
                         background-color: transparent;
                         cursor: pointer;
                         .pro_img {
-                            width: 185px;
-                            height: 185px;
+                            width: 188px;
+                            height: 188px;
                             margin-bottom: 4px;
                             .image {
-                                width: 185px;
-                                height: 185px;
+                                width: 188px;
+                                height: 188px;
                             }
                         }
                         .pro_text {
@@ -411,6 +425,17 @@
                                 margin-bottom: 4px;
                                 font-size: 12px;
                                 color: #656565;
+                            }
+                            .sold-pho{
+                                width: 100%;
+                                height: 6px;
+                                background: #f1f1f1;
+                                display: inline-block;
+                            }
+                            .sold-show{
+                                height: 6px;
+                                // position: absolute;
+                                background-color: #d02629;
                             }
                             .pro-foot{
                                 // display: flex;

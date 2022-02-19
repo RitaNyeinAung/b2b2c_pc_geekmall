@@ -36,6 +36,8 @@ const config = {
     backPwdSendSms: request + 'Register/sendSmsMessage', // 找回密码--短信发送
     backPwd: request + 'Register/backPwd', // 找回密码
     outLogin: request + 'Register/logOut', // 退出登录
+    getLoginMethod: request + 'Register/loginMethod',
+    getSendMailbox: request + 'Register/sendMailbox',
 
     //  首页
     home: request + 'HomeIndex/home', //  首页信息获取

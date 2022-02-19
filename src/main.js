@@ -67,8 +67,8 @@ Vue.use(preview);
 // 引入自己的css
 import "./assets/css/base.css";
 Vue.use(VueLazyload, {
-    error: "http://center.shopsn.net/uploads/qrCode/404.jpg",
-    loading: "http://center.shopsn.net/uploads/qrCode/404.jpg",
+    error: "http://center.geekmall.plus/uploads/qrCode/404.jpg",
+    loading: "http://center.geekmall.plus/uploads/qrCode/404.jpg",
     attempt: 1
 });
 
@@ -78,6 +78,8 @@ Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 import OtpInput from "@bachdgvn/vue-otp-input";
 Vue.component("v-otp-input", OtpInput);
 
+const myanmarPhoneNumber = require('myanmar-phonenumber');
+
 // 图片地址
 const imgUpload = imgRequest;
 const URl = imgRequest;
@@ -86,6 +88,8 @@ Vue.prototype.$Status = Status;
 Vue.prototype.URL = URl;
 Vue.prototype.HTTP = HTTP;
 Vue.prototype.magnify = magnify;
+
+Vue.prototype.myanmarPhoneNumber = myanmarPhoneNumber;
 
 Vue.filter("phoneEncryption", function(phone) {
     //  手机号加星号

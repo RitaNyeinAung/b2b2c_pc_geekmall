@@ -1,8 +1,8 @@
 <template>
   <div class="integral">
     <common-header v-on:childToParent="onChildClick"></common-header>
-    <!-- <head-com></head-com> -->
     <head-com v-if="tempid" :navid = tempid></head-com>
+    <head-com v-else :navid = 58></head-com>
     <div class="banner">
       <el-carousel :interval="5000" arrow="hover" :height="bannerHeight">
         <el-carousel-item
@@ -15,7 +15,7 @@
       <div class="user-info">
         <div class="l denglu">
           <p class="touxiang l">
-            <img v-if="userInfo.user" :src="URL + userInfo.user.header" />
+            <img v-if="userInfo.user" :src="URL + userInfo.user.user_header" />
             <img v-else src="../../assets/img/default-head.png" />
           </p>
           <p class="name l" v-if="userInfo.user">
@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="center">
-      <div class="duihuan">
+      <!-- <div class="duihuan">
         <p>
           本周
           <span>热兑商品</span>
@@ -55,8 +55,8 @@
             <img src="../../assets/img/downyinhao.png" />
           </span>
         </p>
-      </div>
-      <div v-if="hotExchangeData.left" class="cargo">
+      </div> -->
+      <!-- <div v-if="hotExchangeData.left" class="cargo">
         <span>{{ hotExchangeData === null ? "暂无数据" : "" }}</span>
         <a :href="hotExchangeData.left.ad_link" style="pointer-events:auto; ">
         <img class="l left-image" :src="URL + hotExchangeData.left.pic_url" />
@@ -71,30 +71,6 @@
               <a :href="item.ad_link" style="pointer-events:auto; ">
               <img class="right-goods-img" :src="URL + item.pic_url" />
               </a>
-              <!-- <div
-                class="desc"
-                ref="title_dom"
-                @mouseenter="handleEnter(item.title, $event)"
-                @mouseleave="handleLeave(item.title)"
-              >
-                {{ item.title }}
-              </div> -->
-              <!-- <p class="l">{{item.title}}</p> -->
-              <!-- <div class="add_goods">
-                <div class="left">
-                  <div class="price">
-                    价格
-                    <span>{{ item.price_member }}</span>
-                  </div>
-                  <div class="integral">
-                    积分兑换
-                    <span>{{ item.integral }}积分</span>
-                  </div>
-                </div>
-                <div class="right">
-                  <div class="hot_exchange">我要兑换</div>
-                </div>
-              </div> -->
             </div>
             <div
               class="full-display-title"
@@ -103,14 +79,9 @@
             >
               {{ fullTitle }}
             </div>
-            <!-- <router-link to="integraltext">
-                            <p class="l">{{item.title}}</p>
-                            <p class="l">{{item.id}}</p>
-                            <img class="right-goods-img" :src="URL + item.image" />
-                        </router-link>-->
           </li>
         </ul>
-      </div>
+      </div> -->
       <div class="duihuan">
         <p><span>最新</span>兑换商品</p>
         <p>
@@ -200,7 +171,7 @@ export default {
       bannerHeight: "500px",
       arr: [],
       li: [],
-      hotExchangeData: [],
+      // hotExchangeData: [],
       IntegralGoodsNewList: [],
       userInfo: [],
       fullTitieFlag: false,
@@ -242,7 +213,7 @@ export default {
     //获取用户信息
     this.getIntegralUseInfo();
     //热兑商品
-    this.getAttenStore();
+    // this.getAttenStore();
     //最新兑换商品
     this.getGoodsNewList();
     var self = this
@@ -264,7 +235,7 @@ export default {
                 );
                 sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                 sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                    let title='积分商城'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                    let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                     this.showScroll.scrollTitle(title);
             })
             .catch(err => {
@@ -320,35 +291,33 @@ export default {
       console.log(a);
     },
     //热兑商品
-    getAttenStore() {
-      // debugger
-      this.HTTP(this.$httpConfig.getHotExchange, {}, "post")
-        .then(res => {
-          if (res.data.message === "用户未登录!") {
-            this.$confirm("用户未登录", "提示", {
-              confirmButtonText: "确定",
-              type: "warning",
-              closeOnClickModal: false,
-              lockScroll: false,
-              center: true
-            })
-              .then(() => {
-                window.open(window.location.origin + "/passwordLogin");
-              })
-              .catch(err => {
-                console.error(err);
-              });
-          } else {
-            this.$nextTick(el => {
-              this.hotExchangeData = res.data.data;
-            });
-          }
-          // if (res.data.message === 0) return
-        })
-        .catch(err => {
-          console.error(err, "error");
-        });
-    },
+    // getAttenStore() {
+    //   this.HTTP(this.$httpConfig.getHotExchange, {}, "post")
+    //     .then(res => {
+    //       if (res.data.message === "用户未登录!") {
+    //         this.$confirm("用户未登录", "提示", {
+    //           confirmButtonText: "确定",
+    //           type: "warning",
+    //           closeOnClickModal: false,
+    //           lockScroll: false,
+    //           center: true
+    //         })
+    //           .then(() => {
+    //             window.open(window.location.origin + "/passwordLogin");
+    //           })
+    //           .catch(err => {
+    //             console.error(err);
+    //           });
+    //       } else {
+    //         this.$nextTick(el => {
+    //           this.hotExchangeData = res.data.data;
+    //         });
+    //       }
+    //     })
+    //     .catch(err => {
+    //       console.error(err, "error");
+    //     });
+    // },
     //最新兑换商品
     getGoodsNewList() {
       this.HTTP(this.$httpConfig.getIntegralGoodsNewList, {}, "post")
@@ -429,7 +398,7 @@ export default {
         height: 108px;
         background: #eec43c;
         border-radius: 50%;
-        margin: 23px 53px 0;
+        margin: 23px 69px 0;
         img {
           margin: 5px auto;
           display: block;

@@ -10,6 +10,7 @@
   "dependencies": {
     "@bachdgvn/vue-otp-input": "^1.0.8",
     "fix": "0.0.6",
+    "myanmar-phonenumber": "^0.3.2",
     "sass-loader": "^7.1.0",
     "swiper": "^3.4.2",
     "video.js": "^7.10.2",

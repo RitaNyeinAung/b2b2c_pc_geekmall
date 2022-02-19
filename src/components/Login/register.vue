@@ -52,11 +52,23 @@
                                     v-model.trim="username"
                                 />
                             </p>
-                            <p class="tabname">
+                            <p class="tabname" v-if="$store.state.loginMethod == 0">
                                 手机号：<input
                                     type="text"
                                     placeholder="请输入手机号"
                                     v-model="mobile"
+                                /><span
+                                    class="abtain"
+                                    :class="{ active: isActive }"
+                                    @click="abtain"
+                                    >{{ btnText }}</span
+                                >
+                            </p>
+                            <p class="tabname" v-if="$store.state.loginMethod == 1" style="text-indent: 3em;">
+                                邮箱：<input
+                                    type="text"
+                                    placeholder="请输入常用邮箱"
+                                    v-model="mailAcc"
                                 /><span
                                     class="abtain"
                                     :class="{ active: isActive }"
@@ -71,6 +83,20 @@
                                     v-model="message"
                                 />
                             </p>
+                            <p class="tabs1" v-if="$store.state.loginMethod == 0">
+                                邮箱：<input
+                                    type="text"
+                                    placeholder="请输入常用邮箱"
+                                    v-model="email"
+                                />
+                            </p>
+                            <p class="tabs1" v-if="$store.state.loginMethod == 1" style="text-indent: 1.9em;">
+                                手机号：<input
+                                    type="text"
+                                    placeholder="请输入手机号"
+                                    v-model="phone"
+                                />
+                            </p>
                             <p class="tab">
                                 设置密码：<input
                                     type="password"
@@ -78,18 +104,11 @@
                                     v-model="password"
                                 />
                             </p>
-                            <p class="tab">
+                            <p class="tab1">
                                 确认密码：<input
                                     type="password"
                                     placeholder="请再次输入密码"
                                     v-model="re_password"
-                                />
-                            </p>
-                            <p class="tabs">
-                                邮箱：<input
-                                    type="text"
-                                    placeholder="请输入常用邮箱"
-                                    v-model="email"
                                 />
                             </p>
                             <p class="consign">
@@ -116,7 +135,7 @@
                     <div class="l emptyResists">
                         <div class="friend">
                             <p class="string">使用合作网站账号直接登录</p>
-                            <p class="circle">
+                            <p class="circle" v-if="$store.state.loginMethod == 0" style="margin-left: 25px">
                                 <a class="l otherPeople"
                                     ><img src="../../assets/img/login_qq.png"
                                 /></a>
@@ -126,6 +145,14 @@
                                 <a class="l otherPeople"
                                     ><img
                                         src="../../assets/img/login_weixin.png"
+                                /></a>
+                            </p>
+                            <p class="circle" v-if="$store.state.loginMethod == 1" style="margin-left: 45px">
+                                <a class="l otherPeople"
+                                    ><img src="../../assets/img/Facebook_Logo.png"
+                                /></a>
+                                <a class="l otherPeople"
+                                    ><img src="../../assets/img/google_logo.png"
                                 /></a>
                             </p>
                         </div>
@@ -204,10 +231,12 @@ export default {
             istry: "",
             username: "",
             mobile: "",
+            mailAcc: "",
             message: "",
             password: "",
             re_password: "",
             email: "",
+            phone: "",
             btnText: "获取验证码",
             numbers: "",
             ent: "",
@@ -287,47 +316,110 @@ export default {
             //     "-" +
             //     data.init_key_word +
             //     " ";
-             let title = "注册" + "-" + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+             let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
 
         },
         abtain() {
             this.checkType = "error";
             if (this.isActive == true) return;
-            if (!/^1[345789]\d{9}$/.test(this.mobile)) {
-                this.checkText = "请填写正确的手机号";
-                return;
-            } else {
-                this.checkText = "";
-            }
-            var N = 60,
-                _this = this,
-                clear = null;
-            _this.isActive = true;
-            _this.btnText = "请" + N + "秒后重试";
-            _this.isActive = true;
-            clear = setInterval(function() {
-                _this.btnText = "请" + N-- + "秒后重试";
-                if (N < 0) {
-                    clearInterval(clear);
-                    _this.btnText = "获取验证码";
-                    _this.isActive = false;
+            // if (!this.myanmarPhoneNumber.isValidMMPhoneNumber(this.mobile)) {
+            if (this.$store.state.loginMethod == 0) {
+                if (!/^1[345789]\d{9}$/.test(this.mobile)) {
+                    this.checkText = "请填写正确的手机号";
+                    return;
+                } else {
+                    this.checkText = "";
                 }
-            }, 1000);
-            this.HTTP(
-                this.$httpConfig.sms,
-                {
-                    mobile: this.mobile
-                },
-                "post"
-            )
-                .then(res => {
-                    this.token = res.data.data.token;
-                })
-                .catch(res => {
-                    this.checkText = res.data.message;
-                    this.checkType = "warning";
-                });
+            }
+            if (this.$store.state.loginMethod == 1) {
+                if (
+                    !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+                        this.mailAcc
+                    )
+                ) {
+                    this.checkText = "请输入正确的邮箱地址";
+                    return false;
+                }
+            }
+            // var N = 60,
+            //     _this = this,
+            //     clear = null;
+            // _this.isActive = true;
+            // _this.btnText = "请" + N + "秒后重试";
+            // _this.isActive = true;
+            // clear = setInterval(function() {
+            //     _this.btnText = "请" + N-- + "秒后重试";
+            //     if (N < 0) {
+            //         clearInterval(clear);
+            //         _this.btnText = "获取验证码";
+            //         _this.isActive = false;
+            //     }
+            // }, 1000);
+            if (this.$store.state.loginMethod == 0) {
+                this.HTTP(
+                    this.$httpConfig.sms,
+                    {
+                        mobile: this.mobile
+                    },
+                    "post"
+                )
+                    .then(res => {
+                        if (res.data.status == 1) {
+                            var N = 60,
+                                _this = this,
+                                clear = null;
+                            _this.isActive = true;
+                            _this.btnText = "请" + N + "秒后重试";
+                            _this.isActive = true;
+                            clear = setInterval(function() {
+                                _this.btnText = "请" + N-- + "秒后重试";
+                                if (N < 0) {
+                                    clearInterval(clear);
+                                    _this.btnText = "获取验证码";
+                                    _this.isActive = false;
+                                }
+                            }, 1000);
+                        }
+                        // this.token = res.data.data.token;
+                    })
+                    .catch(res => {
+                        this.checkText = res.data.message;
+                        this.checkType = "warning";
+                    });
+            }
+            if (this.$store.state.loginMethod == 1) {
+                this.HTTP(
+                    this.$httpConfig.getSendMailbox,
+                    {
+                        email: this.mailAcc
+                    },
+                    "post"
+                )
+                    .then(res => {
+                        if (res.data.status == 1) {
+                            var N = 60,
+                                _this = this,
+                                clear = null;
+                            _this.isActive = true;
+                            _this.btnText = "请" + N + "秒后重试";
+                            _this.isActive = true;
+                            clear = setInterval(function() {
+                                _this.btnText = "请" + N-- + "秒后重试";
+                                if (N < 0) {
+                                    clearInterval(clear);
+                                    _this.btnText = "获取验证码";
+                                    _this.isActive = false;
+                                }
+                            }, 1000);
+                        }
+                        // this.token = res.data.data.token;
+                    })
+                    .catch(res => {
+                        this.checkText = res.data.message;
+                        this.checkType = "warning";
+                    });
+            }
         },
         loginEnter(index) {
             this.onoff = index;
@@ -350,13 +442,26 @@ export default {
                 this.checkText = "请输入最多20个 中 英 或 数字 组成的 用户名";
                 return false;
             }
-            if (!/^1[345789]\d{9}$/.test(this.mobile)) {
-                this.checkText = "请填写正确的手机号";
-                return;
-            } else {
-                this.checkText = "";
+            // if (!this.myanmarPhoneNumber.isValidMMPhoneNumber(this.mobile)) {
+            if (this.$store.state.loginMethod == 0) {
+                if (!/^1[345789]\d{9}$/.test(this.mobile)) {
+                    this.checkText = "请填写正确的手机号";
+                    return;
+                } else {
+                    this.checkText = "";
+                }
             }
-            if (this.message.length != 6) {
+            if (this.$store.state.loginMethod == 1) {
+                if (
+                    !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+                        this.mailAcc
+                    )
+                ) {
+                    this.checkText = "请输入正确的邮箱地址";
+                    return false;
+                }
+            }
+            if (this.message.length != 7) {
                 this.checkText = "验证码错误";
                 return false;
             }
@@ -368,17 +473,54 @@ export default {
                 this.checkText = "两次密码输入不一致";
                 return false;
             }
-            if (
-                !/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(
-                    this.email
-                )
-            ) {
-                this.checkText = "请输入正确的邮箱地址";
-                return false;
+            if (this.$store.state.loginMethod == 0) {
+                // if (
+                //     !/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(
+                //         this.email
+                //     )
+                if (
+                    !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+                        this.email
+                    )
+                ) {
+                    this.checkText = "请输入正确的邮箱地址";
+                    return false;
+                }
+            }
+            if (this.$store.state.loginMethod == 1) {
+                if (!this.myanmarPhoneNumber.isValidMMPhoneNumber(this.phone)) {
+                    this.checkText = "请填写正确的手机号";
+                    return;
+                } else {
+                    this.checkText = "";
+                }
             }
             if (this.choose == false) {
                 this.checkText = "请同意协议";
                 return false;
+            }
+
+            if (this.$store.state.loginMethod == 0) {
+                var data = {
+                    user_name: this.username,
+                    email: this.email,
+                    password: this.password,
+                    repassword: this.re_password,
+                    // token: this.token,
+                    code: this.message,
+                    mobile: this.mobile
+                }
+            }
+            if (this.$store.state.loginMethod == 1) {
+                var data = {
+                    user_name: this.username,
+                    email: this.mailAcc,
+                    password: this.password,
+                    repassword: this.re_password,
+                    // token: this.token,
+                    code: this.message,
+                    mobile: this.phone
+                }
             }
 
             // this.checkType = 'success';
@@ -387,16 +529,7 @@ export default {
             // 	this.$router.push('/passwordLogin');
             // }, 3000)
             this.HTTP(
-                this.$httpConfig.register,
-                {
-                    user_name: this.username,
-                    email: this.email,
-                    password: this.password,
-                    repassword: this.re_password,
-                    // token: this.token,
-                    code: this.message,
-                    mobile: this.mobile
-                },
+                this.$httpConfig.register, data ,
                 "post"
             )
                 .then(res => {
@@ -422,35 +555,35 @@ export default {
                     });
                 });
         },
-        ipEnter() {
-            if (this.mobile.length != 11) {
-                this.checkText1 = "手机号码有误,请重新输入";
-                return false;
-            }
-            if (this.numbers.length != 4) {
-                this.checkText1 = "验证码错误";
-                return false;
-            }
-            if (this.ent.length != 6) {
-                this.checkText1 = "短信验证码错误";
-                return false;
-            }
-            this.checkType1 = "success";
-            this.checkText1 = "注册成功,请稍等...";
-            setTimeout(() => {
-                this.$router.push("/passwordLogin");
-            }, 3000);
-            this.HTTP(
-                this.$httpConfig.register,
-                {
-                    mobile: this.mobile,
-                    user_name: this.username
-                },
-                "post"
-            ).then(res => {
-                this.$router.push("/passwordLogin");
-            });
-        }
+        // ipEnter() {
+        //     if (this.mobile.length != 11) {
+        //         this.checkText1 = "手机号码有误,请重新输入";
+        //         return false;
+        //     }
+        //     if (this.numbers.length != 4) {
+        //         this.checkText1 = "验证码错误";
+        //         return false;
+        //     }
+        //     if (this.ent.length != 6) {
+        //         this.checkText1 = "短信验证码错误";
+        //         return false;
+        //     }
+        //     this.checkType1 = "success";
+        //     this.checkText1 = "注册成功,请稍等...";
+        //     setTimeout(() => {
+        //         this.$router.push("/passwordLogin");
+        //     }, 3000);
+        //     this.HTTP(
+        //         this.$httpConfig.register,
+        //         {
+        //             mobile: this.mobile,
+        //             user_name: this.username
+        //         },
+        //         "post"
+        //     ).then(res => {
+        //         this.$router.push("/passwordLogin");
+        //     });
+        // }
     }
 };
 </script>
@@ -531,7 +664,8 @@ export default {
         }
         .resist {
             width: 858px;
-            height: 570px;
+            // height: 570px;
+            height: 600px;
             border: 10px solid #d0d0d0;
             background: #ffffff;
             margin-left: 60px;
@@ -539,7 +673,8 @@ export default {
             top: -58px;
             .emptyResist {
                 width: 588px;
-                height: 550px;
+                // height: 550px;
+                height: 580px;
                 margin-left: 29px;
                 border-right: 1px solid #e6e6e6;
                 ul {
@@ -574,7 +709,7 @@ export default {
                     // margin-top: 40px;
                     .tab {
                         width: 396px;
-                        height: 54px;
+                        height: 55px;
                         line-height: 54px;
                         text-indent: 1em;
                         color: #555555;
@@ -589,9 +724,25 @@ export default {
                             text-indent: 0.5em;
                         }
                     }
+                    .tab1 {
+                        width: 396px;
+                        height: 56px;
+                        line-height: 54px;
+                        text-indent: 1em;
+                        color: #555555;
+                        font-size: 14px;
+                        border: 1px solid #e6e6e6;
+                        margin-bottom: 20px;
+                        input {
+                            width: 300px;
+                            height: 50px;
+                            font-size: 14px;
+                            text-indent: 0.5em;
+                        }
+                    }
                     .tabname {
                         width: 396px;
-                        height: 54px;
+                        height: 55px;
                         line-height: 54px;
                         text-indent: 1.9em;
                         color: #555555;
@@ -626,14 +777,16 @@ export default {
                             color: #fff;
                         }
                     }
-                    .tabs {
+                    .tabs1 {
                         width: 396px;
-                        height: 54px;
+                        height: 55px;
                         line-height: 54px;
                         text-indent: 3em;
                         color: #555555;
                         font-size: 14px;
-                        border: 1px solid #e6e6e6;
+                        border-left: 1px solid #e6e6e6;
+                        border-right: 1px solid #e6e6e6;
+                        border-top: 1px solid #e6e6e6;
                         input {
                             width: 300px;
                             height: 50px;
@@ -746,7 +899,8 @@ export default {
             }
             .emptyResists {
                 width: 200px;
-                height: 550px;
+                // height: 550px;
+                height: 580px;
                 margin-left: 20px;
                 .friend {
                     width: 200px;
@@ -761,13 +915,17 @@ export default {
                         font-size: 14px;
                     }
                     .circle {
-                        width: 170px;
+                        // width: 170px;
                         height: 44px;
                         margin-top: 10px;
-                        margin-left: 12px;
+                        // margin-left: 12px;
                         /*margin-bottom: ;*/
                         a {
                             margin-left: 10px;
+                        }
+                        img {
+                            width: 22px;
+                            height: 22px;
                         }
                     }
                 }

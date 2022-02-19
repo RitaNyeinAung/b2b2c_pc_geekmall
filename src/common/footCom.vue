@@ -42,7 +42,7 @@
             <div class="center">
                 <p class="pOne l">{{ websiteInfo.intnet_licence }}</p>
                 <p class="pOne l">{{ websiteInfo.intnet_copyright }}.
-                    <a href="http://www.shopsn.net" >{{siteLink}}</a>
+                    <a href="http://www.geekmall.plus" >{{siteLink}}</a>
                     <!-- <span class="sitelinkcss" @click="websiteCopyRight"> {{siteLink}} </span>   -->
                     <a target="_black" href="https://beian.miit.gov.cn/">{{websiteInfo.record_number}}</a>
                 </p>
@@ -75,7 +75,7 @@ export default {
             article_category: [],
             article: [],
             websiteInfo: {},
-            siteLink: 'www.shopsn.net'
+            siteLink: 'www.geekmall.plus'
         };
     },
     created() {
@@ -84,7 +84,7 @@ export default {
     },
     methods: {
         websiteCopyRight() {
-            location.href = 'http://www.shopsn.net';
+            location.href = 'http://www.geekmall.plus';
         },
         //标题跳转
         toLink(id, name) {

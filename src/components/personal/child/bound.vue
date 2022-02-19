@@ -51,7 +51,7 @@ export default {
     },
     created() {
         if(localStorage.getItem("loginuserdata") == 'true') {
-                let title = "账户绑定" + '-' + sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                let title = sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
             this.showScroll.scrollTitle(title);
         } else {
             this.$router.push('/passwordLogin')

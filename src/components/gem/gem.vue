@@ -229,7 +229,7 @@
                   );
                   sessionStorage.setItem("updateDescription", res.data.data.intnet_description);
                   sessionStorage.setItem("contentKey", res.data.data.init_key_word);
-                      let title='珠宝玉器'+'-'+ sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
+                      let title=sessionStorage.getItem('titleKey') + '-' +sessionStorage.getItem('updateDescription');
                       this.showScroll.scrollTitle(title);
               })
               .catch(err => {
